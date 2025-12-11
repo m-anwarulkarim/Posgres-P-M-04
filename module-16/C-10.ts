@@ -58,4 +58,8 @@
  * - \? লিখে সব psql commands দেখা যাবে
  *
  * ==========================================================
+ *  1. CREATE TABLE users ( id SERIAL PRIMARY KEY, name VARCHAR(50) );
+ *  2. \dt
+ *  3. SELECT * FROM users;
+ *  4. \du
  */
