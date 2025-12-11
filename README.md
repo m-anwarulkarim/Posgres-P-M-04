@@ -37,18 +37,19 @@
 
 ### 📚 Topics Covered
 
-| No. | Topic                                                  | Link                          |
-| --- | ------------------------------------------------------ | ----------------------------- |
-| 01  | 🔏 How the Web Works                                   | [View](./module-16/C-1.ts)    |
-| 02  | 🔏 Frontend, Backend Development & Scaling Ideas       | [View](./module-16/C-2.ts.ts) |
-| 03  | 🔏 1NF Explained - First Normal Form with Easy Example | [View](./module-16/C-3.ts)    |
-| 04  | 🔏 2NF Explained - Second Normal Form in DBMS          | [View](./module-16/C-4.ts)    |
-| 05  | 🔏 3NF Explained - Third Normal Form with Examples     | [View](./module-16/C-5.ts)    |
-| 06  | 🔏 Resolving Many-to-Many Relationship                 | [View](./module-16/C-6.ts)    |
-| 07  | 🔏 Updating ER Diagram Using Junction Table            | [View](./module-16/C-7.ts)    |
-| 08  | 🔏 What is PostgreSQL?                                 | [View](./module-16/C-8.ts)    |
-| 09  | 🔏 Install PostgreSQL & Explore psql CLI               | [View](./module-16/C-9.ts)    |
-| 10  | 🔏 Some Postgres Commands - Add psql to PATH           | [View](./module-16/C-10.ts)   |
+| No. | Topic                                                  | Link                               |
+| --- | ------------------------------------------------------ | ---------------------------------- |
+| 01  | 🔏 How the Web Works                                   | [View](./module-16/C-1.ts)         |
+| 02  | 🔏 Frontend, Backend Development & Scaling Ideas       | [View](./module-16/C-2.ts.ts)      |
+| 03  | 🔏 1NF Explained - First Normal Form with Easy Example | [View](./module-16/C-3.ts)         |
+| 04  | 🔏 2NF Explained - Second Normal Form in DBMS          | [View](./module-16/C-4.ts)         |
+| 05  | 🔏 3NF Explained - Third Normal Form with Examples     | [View](./module-16/C-5.ts)         |
+| 06  | 🔏 Resolving Many-to-Many Relationship                 | [View](./module-16/C-6.ts)         |
+| 07  | 🔏 Updating ER Diagram Using Junction Table            | [View](./module-16/C-7.ts)         |
+| 08  | 🔏 What is PostgreSQL?                                 | [View](./module-16/C-8.ts)         |
+| 09  | 🔏 Install PostgreSQL & Explore psql CLI               | [View](./module-16/C-9.ts)         |
+| 10  | 🔏 Some Postgres Commands - Add psql to PATH           | [View](./module-16/C-10.ts)        |
+| 10  | 🔏 Some Postgres Commands - Add psql to PATH           | [View](./module-16/mainCommend.ts) |
 
 ---
 
@@ -58,18 +59,18 @@
 
 ### 📚 Topics Covered
 
-| No. | Topic             | Link      |
-| --- | ----------------- | --------- |
-| 01  | 🔏 Coming soon... | [View](#) |
-| 02  | 🔏 Coming soon... | [View](#) |
-| 03  | 🔏 Coming soon... | [View](#) |
-| 04  | 🔏 Coming soon... | [View](#) |
-| 05  | 🔏 Coming soon... | [View](#) |
-| 06  | 🔏 Coming soon... | [View](#) |
-| 07  | 🔏 Coming soon... | [View](#) |
-| 08  | 🔏 Coming soon... | [View](#) |
-| 09  | 🔏 Coming soon... | [View](#) |
-| 10  | 🔏 Coming soon... | [View](#) |
+| No. | Topic             | Link                        |
+| --- | ----------------- | --------------------------- |
+| 01  | 🔏 Coming soon... | [View](./module-17/C-1.ts)  |
+| 02  | 🔏 Coming soon... | [View](./module-17/C-2.ts)  |
+| 03  | 🔏 Coming soon... | [View](./module-17/C-3.ts)  |
+| 04  | 🔏 Coming soon... | [View](./module-17/C-4.ts)  |
+| 05  | 🔏 Coming soon... | [View](./module-17/C-5.ts)  |
+| 06  | 🔏 Coming soon... | [View](./module-17/C-6.ts)  |
+| 07  | 🔏 Coming soon... | [View](./module-17/C-7.ts)  |
+| 08  | 🔏 Coming soon... | [View](./module-17/C-8.ts)  |
+| 09  | 🔏 Coming soon... | [View](./module-17/C-9.ts)  |
+| 10  | 🔏 Coming soon... | [View](./module-17/C-10.ts) |
 
 ---
 
@@ -79,18 +80,18 @@
 
 ### 📚 Topics Covered
 
-| No. | Topic             | Link      |
-| --- | ----------------- | --------- |
-| 01  | 🔏 Coming soon... | [View](#) |
-| 02  | 🔏 Coming soon... | [View](#) |
-| 03  | 🔏 Coming soon... | [View](#) |
-| 04  | 🔏 Coming soon... | [View](#) |
-| 05  | 🔏 Coming soon... | [View](#) |
-| 06  | 🔏 Coming soon... | [View](#) |
-| 07  | 🔏 Coming soon... | [View](#) |
-| 08  | 🔏 Coming soon... | [View](#) |
-| 09  | 🔏 Coming soon... | [View](#) |
-| 10  | 🔏 Coming soon... | [View](#) |
+| No. | Topic             | Link                        |
+| --- | ----------------- | --------------------------- |
+| 01  | 🔏 Coming soon... | [View](./module-18/C-1.ts)  |
+| 02  | 🔏 Coming soon... | [View](./module-18/C-2.ts)  |
+| 03  | 🔏 Coming soon... | [View](./module-18/C-3.ts)  |
+| 04  | 🔏 Coming soon... | [View](./module-18/C-4.ts)  |
+| 05  | 🔏 Coming soon... | [View](./module-18/C-5.ts)  |
+| 06  | 🔏 Coming soon... | [View](./module-18/C-6.ts)  |
+| 07  | 🔏 Coming soon... | [View](./module-18/C-7.ts)  |
+| 08  | 🔏 Coming soon... | [View](./module-18/C-8.ts)  |
+| 09  | 🔏 Coming soon... | [View](./module-18/C-9.ts)  |
+| 10  | 🔏 Coming soon... | [View](./module-18/C-10.ts) |
 
 ---
 
@@ -100,18 +101,18 @@
 
 ### 📚 Topics Covered
 
-| No. | Topic             | Link      |
-| --- | ----------------- | --------- |
-| 01  | 🔏 Coming soon... | [View](#) |
-| 02  | 🔏 Coming soon... | [View](#) |
-| 03  | 🔏 Coming soon... | [View](#) |
-| 04  | 🔏 Coming soon... | [View](#) |
-| 05  | 🔏 Coming soon... | [View](#) |
-| 06  | 🔏 Coming soon... | [View](#) |
-| 07  | 🔏 Coming soon... | [View](#) |
-| 08  | 🔏 Coming soon... | [View](#) |
-| 09  | 🔏 Coming soon... | [View](#) |
-| 10  | 🔏 Coming soon... | [View](#) |
+| No. | Topic             | Link                        |
+| --- | ----------------- | --------------------------- |
+| 01  | 🔏 Coming soon... | [View](./module-19/C-1.ts)  |
+| 02  | 🔏 Coming soon... | [View](./module-19/C-2.ts)  |
+| 03  | 🔏 Coming soon... | [View](./module-19/C-3.ts)  |
+| 04  | 🔏 Coming soon... | [View](./module-19/C-4.ts)  |
+| 05  | 🔏 Coming soon... | [View](./module-19/C-5.ts)  |
+| 06  | 🔏 Coming soon... | [View](./module-19/C-6.ts)  |
+| 07  | 🔏 Coming soon... | [View](./module-19/C-7.ts)  |
+| 08  | 🔏 Coming soon... | [View](./module-19/C-8.ts)  |
+| 09  | 🔏 Coming soon... | [View](./module-19/C-9.ts)  |
+| 10  | 🔏 Coming soon... | [View](./module-19/C-10.ts) |
 
 ---
 
@@ -121,17 +122,17 @@
 
 ### 📚 Topics Covered
 
-| No. | Topic             | Link      |
-| --- | ----------------- | --------- |
-| 01  | 🔏 Coming soon... | [View](#) |
-| 02  | 🔏 Coming soon... | [View](#) |
-| 03  | 🔏 Coming soon... | [View](#) |
-| 04  | 🔏 Coming soon... | [View](#) |
-| 05  | 🔏 Coming soon... | [View](#) |
-| 06  | 🔏 Coming soon... | [View](#) |
-| 07  | 🔏 Coming soon... | [View](#) |
-| 08  | 🔏 Coming soon... | [View](#) |
-| 09  | 🔏 Coming soon... | [View](#) |
-| 10  | 🔏 Coming soon... | [View](#) |
+| No. | Topic             | Link                        |
+| --- | ----------------- | --------------------------- |
+| 01  | 🔏 Coming soon... | [View](./module-20/C-1.ts)  |
+| 02  | 🔏 Coming soon... | [View](./module-20/C-2.ts)  |
+| 03  | 🔏 Coming soon... | [View](./module-20/C-3.ts)  |
+| 04  | 🔏 Coming soon... | [View](./module-20/C-4.ts)  |
+| 05  | 🔏 Coming soon... | [View](./module-20/C-5.ts)  |
+| 06  | 🔏 Coming soon... | [View](./module-20/C-6.ts)  |
+| 07  | 🔏 Coming soon... | [View](./module-20/C-7.ts)  |
+| 08  | 🔏 Coming soon... | [View](./module-20/C-8.ts)  |
+| 09  | 🔏 Coming soon... | [View](./module-20/C-9.ts)  |
+| 10  | 🔏 Coming soon... | [View](./module-20/C-10.ts) |
 
 ---
