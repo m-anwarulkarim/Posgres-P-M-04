@@ -60,18 +60,18 @@
 
 ### 📚 Topics Covered
 
-| No. | Topic             | Link                        |
-| --- | ----------------- | --------------------------- |
-| 01  | 🔏 Coming soon... | [View](./module-17/C-1.ts)  |
-| 02  | 🔏 Coming soon... | [View](./module-17/C-2.ts)  |
-| 03  | 🔏 Coming soon... | [View](./module-17/C-3.ts)  |
-| 04  | 🔏 Coming soon... | [View](./module-17/C-4.ts)  |
-| 05  | 🔏 Coming soon... | [View](./module-17/C-5.ts)  |
-| 06  | 🔏 Coming soon... | [View](./module-17/C-6.ts)  |
-| 07  | 🔏 Coming soon... | [View](./module-17/C-7.ts)  |
-| 08  | 🔏 Coming soon... | [View](./module-17/C-8.ts)  |
-| 09  | 🔏 Coming soon... | [View](./module-17/C-9.ts)  |
-| 10  | 🔏 Coming soon... | [View](./module-17/C-10.ts) |
+| No. | Topic                            | Link                        |
+| --- | -------------------------------- | --------------------------- |
+| 01  | 🔏 Intro to SQL                  | [View](./module-17/C-1.ts)  |
+| 02  | 🔏 pgAdmin Basics                | [View](./module-17/C-2.ts)  |
+| 03  | 🔏 Install Beekeeper Studio      | [View](./module-17/C-3.ts)  |
+| 04  | 🔏 Integer & Boolean Types       | [View](./module-17/C-4.ts)  |
+| 05  | 🔏 Character, Date & UUID Types  | [View](./module-17/C-5.ts)  |
+| 06  | 🔏 Create & Drop DB/Table        | [View](./module-17/C-6.ts)  |
+| 07  | 🔏 Column Constraints            | [View](./module-17/C-7.ts)  |
+| 08  | 🔏 Multiple Constraints & Insert | [View](./module-17/C-8.ts)  |
+| 09  | 🔏 Insert Data Methods           | [View](./module-17/C-9.ts)  |
+| 10  | 🔏 Insert Without Column Names   | [View](./module-17/C-10.ts) |
 
 ---
 
