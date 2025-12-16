@@ -8,7 +8,7 @@ ORDER BY column_name ASC / DESC`;
 `SELECT column_name AS alias_name
 FROM table_name`;
 
-// DISTINCT filtering
+// DISTINCT filtering (ডুপ্লিকেট)
 `SELECT DISTINCT column_name
 FROM table_name
 `;
@@ -48,8 +48,11 @@ FROM users
 // Aggregate Functions
 `
 SELECT COUNT(*)
-FROM students;
-`// ============================================= //1.SUM() 2.AVG() 3.MIN() 4.MAX() 5.
+FROM students
+`; //1.SUM() 2.AVG() 3.MIN() 4.MAX() 5.
+//
+//
+// ========================
 `
 SELECT 
 u.name AS user_name,
