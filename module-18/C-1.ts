@@ -33,7 +33,7 @@ table / column এর নাম বদলানো */
 // Basic example
 // users টেবিলে phone নামে নতুন column যোগ করা
 `ALTER TABLE users
-"ADD COLUMN phone TEXT;`;
+ ADD COLUMN phone TEXT;`;
 // Default value সহ column যোগ করা // Notes: // ================
 `ALTER TABLE users
 ADD COLUMN status TEXT DEFAULT 'active';`; /*

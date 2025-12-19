@@ -71,7 +71,7 @@
 | 07  | 🔏 Column Constraints            | [View](./module-17/C-7.ts)  |
 | 08  | 🔏 Multiple Constraints & Insert | [View](./module-17/C-8.ts)  |
 | 09  | 🔏 CHECK Constraint              | [View](./module-17/C-9.ts)  |
-| 10  | 🔏 Insert Without Column Names   | [View](./module-17/C-10.ts) |
+| 10  | 🔏 ......                        | [View](./module-17/C-10.ts) |
 
 ---
 
