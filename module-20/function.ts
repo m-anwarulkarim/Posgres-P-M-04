@@ -78,39 +78,6 @@ $$ LANGUAGE plpgsql;`;
 
 /*
 ====================================================================
-🟦 PostgreSQL — SQL LANGUAGE FUNCTION EXAMPLE
-====================================================================
-
-Function Name: delet_student_id
-Purpose: Students table এ কতজন student আছে তা return করা
-Language: SQL
-Return Type: int
-Usage: খুব simple, শুধুমাত্র SELECT statement return করে
-*/
-
-/*
-===========================================================
-CREATE FUNCTION Example
-===========================================================
-*/
-
-`CREATE FUNCTION delet_student_id()
-RETURNS int
-LANGUAGE sql
-AS $$
-    SELECT COUNT(*) FROM students;
-$$;`;
-
-/*
-===========================================================
-Function Call কিভাবে করতে হয়?
-===========================================================
-*/
-
-`SELECT delet_student_id();`;
-
-/*
-====================================================================
 3) Function That Returns TEXT
 ====================================================================
 Explanation:
