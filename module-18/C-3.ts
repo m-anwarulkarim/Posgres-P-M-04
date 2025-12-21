@@ -15,7 +15,7 @@ Syntax:
 */
 `SELECT column1, column2
 FROM table_name
-ORDER BY column1 ASC|DESC`;
+ORDER BY column1 ASC / DESC`;
 
 // উদাহরণ:
 `SELECT name, age FROM users ORDER BY age ASC`;

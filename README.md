@@ -124,17 +124,14 @@
 
 ### 📚 Topics Covered
 
-| No. | Topic             | Link                        |
-| --- | ----------------- | --------------------------- |
-| 01  | 🔏 USING          | [View](./module-20/C-1.ts)  |
-| 02  | 🔏 Coming soon... | [View](./module-20/C-2.ts)  |
-| 03  | 🔏 Coming soon... | [View](./module-20/C-3.ts)  |
-| 04  | 🔏 Subquery       | [View](./module-20/C-4.ts)  |
-| 05  | 🔏 Functions      | [View](./module-20/C-5.ts)  |
-| 06  | 🔏 Coming soon... | [View](./module-20/C-6.ts)  |
-| 07  | 🔏 Coming soon... | [View](./module-20/C-7.ts)  |
-| 08  | 🔏 Coming soon... | [View](./module-20/C-8.ts)  |
-| 09  | 🔏 Coming soon... | [View](./module-20/C-9.ts)  |
-| 10  | 🔏 Coming soon... | [View](./module-20/C-10.ts) |
+| No. | Topic                 | Link                            |
+| --- | --------------------- | ------------------------------- |
+| 01  | 🔏 USING              | [View](./module-20/C-1.ts)      |
+| 02  | 🔏 Subquery           | [View](./module-20/C-2.ts)      |
+| 03  | 🔏 FUNCTION           | [View](./module-20/C-3.ts)      |
+| 04  | 🔏 STORED PROCEDURE . | [View](./module-20/C-4.ts)      |
+| 05  | 🔏 Functions          | [View](./module-20/function.ts) |
+| 06  | 🔏 Trigger            | [View](./module-20/C-6.ts)      |
+| 07  | 🔏 Indexing           | [View](./module-20/C-7.ts)      |
 
 ---

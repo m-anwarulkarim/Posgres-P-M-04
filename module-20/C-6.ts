@@ -1,145 +1,137 @@
 /*
-====================================================================
-🟦 PostgreSQL — STORED PROCEDURE 
-====================================================================
+==========================================================
+🟦 PostgreSQL Indexing — TypeScript File Version
+==========================================================
 
-Stored Procedure কী?
---------------------------------
-- Procedure হলো database-এ থাকা reusable program  
-- Function-এর মতো logic execute করে, কিন্তু সরাসরি return value বাধ্যতামূলক নয়  
-- Procedure মূলত Data Manipulation (INSERT, UPDATE, DELETE) বা Complex Logic এর জন্য ব্যবহৃত হয়
+1️⃣ Index কী?  
 
-Key Points:
-✔ Function → value return করে  
-✔ Procedure → কাজ সম্পন্ন করে, return value optional  
-✔ Procedure CALL command দিয়ে execute হয়
+Index হলো database-এর এমন একটি structure,  
+যা **query execution speed বাড়াতে** ব্যবহৃত হয়।  
+
+Simply বলতে গেলে:  
+👉 এটা হলো database table-এর জন্য একটি “fast lookup” system।  
+👉 ঠিক যেমন বই-এর শেষে Index থাকলে আমরা দ্রুত page খুঁজে পাই।  
+
+উদাহরণ:  
+- Employee table থেকে specific id বা name খুঁজে বের করা  
+- Large table এ search operations দ্রুত করা  
+
 */
 
 /*
-====================================================================
-🟩 Procedure এর সুবিধা
-====================================================================
-- কোড reusable → একবার declare করলে বারবার ব্যবহার করা যায়  
-- Business logic database-এ রাখা যায়  
-- Performance improve হয়, কারণ database-এ logic execute হয়  
-- Function-এর মতো strict return value নেই → বেশি flexible  
+2️⃣ Index কেন ব্যবহার করি?  
+
+1. SELECT query গুলো দ্রুত execute করতে  
+2. WHERE clause এর performance improve করতে  
+3. JOIN operation দ্রুত করতে  
+4. ORDER BY, GROUP BY operation দ্রুত করতে  
+
 */
 
 /*
-====================================================================
-🔵 PostgreSQL Procedure Structure
-====================================================================
+3️⃣ Index Type (PostgreSQL)
 */
-
-`CREATE PROCEDURE procedure_name(parameters)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    -- Procedure logic
-END;
-$$`;
-
 /*
-====================================================================
-1) Simple Procedure — কোনো parameter নেই
-====================================================================
-Explanation:
-- কোন parameter নেই  
-- কাজ console-এ message দেখানো
-*/
+1. **B-Tree Index** (Default)
+   - Most common  
+   - WHERE, JOIN, ORDER BY এর জন্য best  
+   - Example: PRIMARY KEY automatically B-Tree index তৈরি করে  
 
-`CREATE PROCEDURE say_hello()
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    RAISE NOTICE 'Hello, world!';
-END;
-$$`;
+2. **Hash Index**
+   - Exact match এর জন্য  
+   - WHERE column = value
 
-/*
-Execute:
-CALL say_hello();
+3. **GIN (Generalized Inverted Index)**
+   - Array, JSONB column এর জন্য  
+   - Full-text search এর জন্য  
+
+4. **GiST (Generalized Search Tree)**
+   - Geometric data, range type, full-text search  
+
+5. **BRIN (Block Range Index)**
+   - Large sequential tables  
+   - Column data sequential হলে খুব দ্রুত  
+
 */
 
 /*
-====================================================================
-2) Procedure With IN parameter
-====================================================================
-Explanation:
-- parameter হিসেবে input নেয়  
-- console-এ message দেখায়
-*/
-
-`CREATE PROCEDURE greet_user(name text)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    RAISE NOTICE 'Hello, %', name;
-END;
-$$`;
-
-/*
-Execute:
-CALL greet_user('Anwar');
+4️⃣ Index কিভাবে বানানো হয়?  
 */
 
 /*
-====================================================================
-3) Procedure With OUT parameter
-====================================================================
-Explanation:
-- OUT parameter দিয়ে value return করা যায়  
-- employees table থেকে total count return করবে
+-- Example: Employee table(id, name, salary)
+-- 1. Simple Index on name
 */
 
-`CREATE PROCEDURE get_employee_count(OUT total int)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    SELECT COUNT(*) INTO total FROM employees;
-END;
-$$`;
+`CREATE INDEX idx_employee_name
+ON employees(name)`;
 
 /*
-Execute:
-CALL get_employee_count(total => 0);
+-- 2. Unique Index
+-- Ensures no duplicate values
 */
 
+`CREATE UNIQUE INDEX idx_employee_id
+ON employees(id)`;
+
 /*
-====================================================================
-4) Procedure Doing INSERT / UPDATE
-====================================================================
-Explanation:
-- Student table-এ নতুন row insert করবে
+-- 3. Composite Index (multiple columns)
 */
 
-`CREATE PROCEDURE add_student(student_name text, student_age int)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    INSERT INTO students(name, age) VALUES (student_name, student_age);
-END;
-$$`;
+`CREATE INDEX idx_employee_name_salary
+ON employees(name, salary)`;
 
 /*
-Execute:
-CALL add_student('Karim', 20);
+-- 4. Partial Index (conditional index)
+-- শুধুমাত্র salary > 50000 এর জন্য
 */
 
+`CREATE INDEX idx_high_salary
+ON employees(salary)
+WHERE salary > 50000`;
+
 /*
-====================================================================
-5) Key Differences: Function vs Procedure
-====================================================================
-| Feature | Function | Procedure |
-|---------|---------|-----------|
-| Return Value | অবশ্যই return করতে হবে | Optional; OUT parameter ব্যবহার করা যায় |
-| Execute | SELECT / expression | CALL procedure_name() |
-| Use | Calculation / Query | Data manipulation / Business logic |
-| Transaction control | সীমিত | BEGIN/COMMIT/ROLLBACK করতে পারে |
+-- 5. Index on expression
+-- যেমন UPPER(name) এর উপর index
+*/
+
+`CREATE INDEX idx_upper_name
+ON employees(UPPER(name))`;
+
+/*
+5️⃣ Index কিভাবে কাজ করে?  
+
+- Table scan না করে index structure থেকে value খুঁজে নেয়  
+- B-Tree, Hash, GIN, GiST, BRIN অনুযায়ী lookup হয়  
+- WHERE, JOIN, ORDER BY, GROUP BY operations দ্রুত হয়  
+
 */
 
 /*
-====================================================================
-✔ END — PostgreSQL Stored Procedure (TS File Style)
-====================================================================
+6️⃣ Index Drop করা
+*/
+
+`DROP INDEX idx_employee_name`;
+
+/*
+7️⃣ Index এর সুবিধা ও অসুবিধা  
+
+✅ Advantages:
+- Query performance বৃদ্ধি পায়  
+- Search, Join, Order, Group operations দ্রুত হয়  
+
+❌ Disadvantages:
+- Table এ data insert/update/delete এর performance কিছুটা slow হয়  
+- Extra storage লাগে  
+*/
+
+/*
+==========================================================
+✅ Summary  
+
+- Index হলো database table এর fast lookup structure  
+- PostgreSQL বিভিন্ন ধরনের index support করে: B-Tree, Hash, GIN, GiST, BRIN  
+- SELECT, WHERE, JOIN, ORDER BY, GROUP BY operations দ্রুত হয়  
+- Proper indexing query performance dramatically improve করে  
+==========================================================
 */

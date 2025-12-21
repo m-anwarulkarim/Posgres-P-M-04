@@ -1,194 +1,136 @@
 /*
-====================================================================
-🟦 PostgreSQL — FUNCTION (FULL CLEAR EXPLANATION)
-====================================================================
+==========================================================
+🟦 PostgreSQL Trigger —
+==========================================================
 
-PostgreSQL Function কী?
---------------------------------
-Function হলো database-এর ভিতরে থাকা reusable program  
-👉 input নিতে পারে (parameter)  
-👉 কোনো কাজ করতে পারে (calculation, query, logic)  
-👉 output return করতে পারে
+1️⃣ Trigger কী?  
 
-অর্থাৎ:
-✔ কোড বারবার না লিখে একবার define করে বারবার run করা  
-✔ Logic database-এর ভিতরেই execute করা  
-✔ Performance improve করা
+Trigger হলো SQL-এর একটি special type এর stored procedure,  
+যেটি **automaticভাবে চালানো হয়** যখন কোনো নির্দিষ্ট event ঘটে কোনো table-এ।  
 
-Function তৈরি করতে সাধারণত এই keyword ব্যবহার হয়:
-CREATE FUNCTION  
-RETURNS  
-LANGUAGE plpgsql / sql  
-BEGIN ... END; (plpgsql জন্য)
+Simply বলতে গেলে:  
+👉 এটা হলো database-এর "event listener"।  
+
+উদাহরণ:  
+- যখন কোনো row insert, update বা delete হয়, Trigger automatically কাজ করবে।  
 */
 
 /*
-====================================================================
-🟩 কেন PostgreSQL Function ব্যবহার করা হয়?
-====================================================================
-- বারবার একই logic লিখতে না হয়  
-- Business logic database এর ভিতরে রাখা যায়  
-- Query আরও ছোট ও clean হয়  
-- Calculation বা validation DB-এর মধ্যেই করা যায়  
-- অনেক সময় performance JOIN-এর চেয়ে দ্রুত হয়  
+2️⃣ Trigger কেন ব্যবহার করি?  
+
+1. Data integrity বজায় রাখতে  
+2. Audit বা logging system তৈরি করতে  
+3. Automatic calculations বা updates করতে  
+4. নির্দিষ্ট condition অনুযায়ী warning বা error দেখাতে  
 */
 
 /*
-====================================================================
-🔵 PostgreSQL Function এর Basic Structure (PL/pgSQL)
-====================================================================
+3️⃣ Trigger-এর ধরণ (Types):  
+
+1. **BEFORE Trigger**  
+   - Event ঘটার আগে চালানো হয়  
+   - সাধারণত validation বা data modification এর জন্য ব্যবহৃত হয়  
+
+2. **AFTER Trigger**  
+   - Event ঘটার পরে চালানো হয়  
+   - সাধারণত logging বা audit এর জন্য ব্যবহৃত হয়  
+
+3. **INSTEAD OF Trigger** (mostly View-এর জন্য)  
+   - Event-এর পরিবর্তে custom logic চালায়  
 */
 
-`CREATE FUNCTION function_name(parameters)
-RETURNS return_type AS $$
+/*
+4️⃣ Trigger কোন event-এর জন্য ব্যবহার করা যায়?  
+
+- **INSERT** → যখন কোনো নতুন row add হয়  
+- **UPDATE** → যখন কোনো row update হয়  
+- **DELETE** → যখন কোনো row delete হয়  
+*/
+
+/*
+5️⃣ Trigger Syntax উদাহরণ (PostgreSQL)
+*/
+
+/*
+-- Table উদাহরণ: employees(id, name, salary)
+*/
+
+/*
+-- 1. Trigger Function বানানো (BEFORE INSERT)
+*/
+
+`CREATE OR REPLACE FUNCTION before_employee_insert()
+RETURNS TRIGGER AS $$
 BEGIN
-    -- function body (logic)
-    RETURN something;
-END;
-$$ LANGUAGE plpgsql;`;
-
-/*
-====================================================================
-1) Simple Function — কোনো parameter নেই, শুধু value return করবে
-====================================================================
-Explanation:
-- শুধু একটি সংখ্যা return করবে
-*/
-
-`CREATE FUNCTION get_fixed_value()
-RETURNS int AS $$
-BEGIN
-    RETURN 100;
-END;
-$$ LANGUAGE plpgsql;`;
-
-/*
-====================================================================
-2) Function With Parameter
-====================================================================
-Explanation:
-- parameter হিসেবে দুটি সংখ্যা নেবে
-- যোগফল return করবে
-*/
-
-`CREATE FUNCTION add_numbers(a int, b int)
-RETURNS int AS $$
-BEGIN
-    RETURN a + b;
-END;
-$$ LANGUAGE plpgsql;`;
-
-/*
-====================================================================
-🟦 PostgreSQL — SQL LANGUAGE FUNCTION EXAMPLE
-====================================================================
-Function Name: delet_student_id
-Purpose: Students table এ কতজন student আছে তা return করা
-Language: SQL
-Return Type: int
-Usage: খুব simple, শুধুমাত্র SELECT statement return করে
-*/
-
-`CREATE FUNCTION delet_student_id()
-RETURNS int
-LANGUAGE sql
-AS $$
-    SELECT COUNT(*) FROM students;
-$$;`;
-
-/*
-====================================================================
-Function Call (SQL)
-====================================================================
-*/
-
-`SELECT delet_student_id();`;
-
-/*
-====================================================================
-3) Function That Returns TEXT
-====================================================================
-Explanation:
-- কোনো নাম নিলে সেটাকে 'Hello' সহ return করবে
-*/
-
-`CREATE FUNCTION greet(name text)
-RETURNS text AS $$
-BEGIN
-    RETURN 'Hello, ' || name;
-END;
-$$ LANGUAGE plpgsql;`;
-
-/*
-====================================================================
-4) Function Returning Table (Important)
-====================================================================
-Explanation:
-- employee টেবিলের সব row return করবে
-*/
-
-`CREATE FUNCTION get_all_employees()
-RETURNS TABLE(id int, name text, salary int) AS $$
-BEGIN
-    RETURN QUERY
-    SELECT id, name, salary FROM employees;
-END;
-$$ LANGUAGE plpgsql;`;
-
-/*
-====================================================================
-5) Function With Conditions (IF / ELSE)
-====================================================================
-Explanation:
-- salary > 50000 হলে "High"
-- না হলে "Normal"
-*/
-
-`CREATE FUNCTION salary_status(salary int)
-RETURNS text AS $$
-BEGIN
-    IF salary > 50000 THEN
-        RETURN 'High';
-    ELSE
-        RETURN 'Normal';
+    -- Example: salary 0 এর কম হলে error দেখাবে
+    IF NEW.salary < 0 THEN
+        RAISE EXCEPTION 'Salary cannot be negative!';
     END IF;
+    RETURN NEW; -- নতুন row insert করতে RETURN করা লাগবে
 END;
-$$ LANGUAGE plpgsql;`;
+$$ LANGUAGE plpgsql`;
 
 /*
-====================================================================
-6) FUNCTION Example With Business Logic
-====================================================================
-Explanation:
-- basic salary নেবে
-- 10% bonus যোগ করে final salary return করবে
+-- 2. Trigger বানানো
 */
 
-`CREATE FUNCTION calculate_salary(basic int)
-RETURNS int AS $$
-DECLARE
-    bonus int;
+`CREATE TRIGGER check_salary_before_insert
+BEFORE INSERT ON employees
+FOR EACH ROW
+EXECUTE FUNCTION before_employee_insert()`;
+
+/*
+6️⃣ UPDATE Trigger উদাহরণ
+*/
+
+/*
+-- যখন salary update হবে, তার আগেই log table-এ লিখে রাখা
+*/
+
+`CREATE OR REPLACE FUNCTION log_salary_update()
+RETURNS TRIGGER AS $$
 BEGIN
-    bonus := basic * 0.10;
-    RETURN basic + bonus;
+    INSERT INTO salary_log(employee_id, old_salary, new_salary, updated_at)
+    VALUES(OLD.id, OLD.salary, NEW.salary, NOW());
+    RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;`;
+$$ LANGUAGE plpgsql`;
+
+`CREATE TRIGGER after_salary_update
+AFTER UPDATE OF salary ON employees
+FOR EACH ROW
+EXECUTE FUNCTION log_salary_update()`;
 
 /*
-====================================================================
-🟧 Function Call কিভাবে করতে হয়?
-====================================================================
+7️⃣ DELETE Trigger উদাহরণ
 */
 
-`SELECT get_fixed_value();`;
-`SELECT add_numbers(10, 5);`;
-`SELECT greet('Karim');`;
-`SELECT * FROM get_all_employees();`;
-`SELECT salary_status(60000);`;
-`SELECT calculate_salary(30000);`;
+/*
+-- যখন কোনো employee delete হবে, তার data audit table-এ রাখা
+*/
+
+`CREATE OR REPLACE FUNCTION log_employee_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO employee_audit(id, name, salary, deleted_at)
+    VALUES(OLD.id, OLD.name, OLD.salary, NOW());
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql`;
+
+`CREATE TRIGGER after_employee_delete
+AFTER DELETE ON employees
+FOR EACH ROW
+EXECUTE FUNCTION log_employee_delete()`;
 
 /*
-====================================================================
-✔ END — PostgreSQL Function (SQL + PL/pgSQL) (Best Clean Explanation)
-====================================================================
+==========================================================
+✅ Summary  
+
+- Trigger হলো automatic SQL procedure  
+- Event-driven: INSERT, UPDATE, DELETE  
+- BEFORE / AFTER / INSTEAD OF ধরণ  
+- Row বা statement level Trigger হতে পারে  
+- Data integrity, logging, automation-এর জন্য খুব দরকারি  
+==========================================================
 */

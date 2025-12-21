@@ -1,216 +1,145 @@
 /*
-===========================================================
-🟦 PostgreSQL — Subquery
-===========================================================
+====================================================================
+🟦 PostgreSQL — STORED PROCEDURE 
+====================================================================
 
-Subquery মানে হলো—
-👉 একটি Query এর ভেতরে আরেকটি Query।
-
-একে বলা হয়:
-✔ Inner Query  
-✔ Nested Query  
-✔ Child Query  
-✔ Outer Query যে Query ব্যবহার করে
-
-Subquery কেন ব্যবহার হয়?
+Stored Procedure কী?
 --------------------------------
-- জটিল ডেটা Filter করতে
-- অন্য টেবিলের ডেটা থেকে dynamic মান আনতে
-- aggregate + condition একসাথে handle করতে
-- SELECT / WHERE / FROM — যেকোনো জায়গায় ব্যবহার করা যায়
+- Procedure হলো database-এ থাকা reusable program  
+- Function-এর মতো logic execute করে, কিন্তু সরাসরি return value বাধ্যতামূলক নয়  
+- Procedure মূলত Data Manipulation (INSERT, UPDATE, DELETE) বা Complex Logic এর জন্য ব্যবহৃত হয়
 
-Basic Syntax:
---------------------------------
-SELECT column
-FROM table
-WHERE column = (SELECT column FROM other_table);
-
-===========================================================
-🟩 1) Subquery in WHERE Clause
-===========================================================
+Key Points:
+✔ Function → value return করে  
+✔ Procedure → কাজ সম্পন্ন করে, return value optional  
+✔ Procedure CALL command দিয়ে execute হয়
 */
-
-`SELECT *
-FROM orders
-WHERE customer_id IN (
-  SELECT id
-  FROM customers
-  WHERE age > 30
-);`;
-
-/*
-ব্যাখ্যা:
-- ভিতরের query customers টেবিল থেকে বয়স >৩০ এর সব ID আনছে
-- outer query orders টেবিল থেকে সেই customer_id match করছে
-*/
-
-/*
-===========================================================
-🟦 2) Subquery in SELECT Clause
-===========================================================
-*/
-
-`SELECT 
-  p.id,
-  p.name,
-  (SELECT COUNT(*) 
-   FROM orders 
-   WHERE product_id = p.id) AS total_orders
-FROM products AS p;`;
-
-/*
-ব্যাখ্যা:
-- প্রতিটি product এর জন্য কতগুলো order হয়েছে সেটা subquery count করছে
-- SELECT এর ভেতরে calculation
-*/
-
-/*
-===========================================================
-🟧 3) Subquery in FROM Clause (Derived Table / Inline View)
-===========================================================
-*/
-
-`SELECT t.category, t.total_sold
-FROM (
-  SELECT category, SUM(sales) AS total_sold
-  FROM products
-  GROUP BY category
-) AS t
-WHERE t.total_sold > 500;`;
-
-/*
-ব্যাখ্যা:
-- FROM এর ভেতরে আলাদা virtual table বানানো হয়েছে (t)
-- তারপর outer query সেটাকে filter করছে
-*/
-
-/*
-===========================================================
-🟦 4) Single-row Subquery
-(=, <, >, <= এর সাথে ব্যবহার হয়)
-===========================================================
-*/
-
-`SELECT *
-FROM products
-WHERE price > (SELECT AVG(price) FROM products);`;
-
-/*
-এক লাইনের result — AVG(price)
-বহু row return করে না
-*/
-
-/*
-===========================================================
-🟩 5) Multi-row Subquery
-(IN, ANY, ALL এর সাথে ব্যবহার হয়)
-===========================================================
-*/
-
-`SELECT *
-FROM products
-WHERE id IN (SELECT product_id FROM orders);`;
-
-/*
-এখানে ভিতরের query একাধিক product_id return করে
-*/
-
-/*
-===========================================================
-🟧 6) Correlated Subquery (Advanced)
-===========================================================
-*/
-
-`SELECT name
-FROM products AS p
-WHERE price > (
-   SELECT AVG(price)
-   FROM products
-   WHERE category = p.category
-);`;
-
-/*
-ব্যাখ্যা:
-- inner query outer query এর প্রতিটি row এর সাথে চলে
-- category অনুযায়ী average price বের করে, তারপর compare করে
-*/
-
-/*
-===========================================================
-🟥 Subquery কখন ব্যবহার না করাই ভালো?
-===========================================================
-- যখন JOIN দিয়ে simple solution হয়
-- বড় টেবিলে nested subquery performance slow করে
-- CTE (WITH) অনেক readable এবং optimize friendly
-
-===========================================================
-✔ END — PostgreSQL Subquery Full Explanation
-===========================================================
-*/
-/*
-====================================================================
-🟦 PostgreSQL Subquery — ৩টি Important Example 
-====================================================================
-
-1) কোন employee সবচেয়ে বেশি salary পায়  
-2) কোন employee average salary-এর চেয়ে বেশি আয় করে  
-3) HR department-এ কে সবচেয়ে বেশি salary পায়  
-
-সবগুলো Subquery-এর সবচেয়ে common interview প্রশ্নও।
-*/
-
-/*
-===========================================================
-1) Which employee gets the highest salary?
-===========================================================
-Explanation:
-- inner query: পুরো employees টেবিল থেকে সর্বোচ্চ salary বের করে
-- outer query: সেই salary যাদের, তাদের নাম + salary দেখায়
-*/
-
-`SELECT name, salary
-FROM employees
-WHERE salary = (
-    SELECT MAX(salary)
-    FROM employees
-);`;
-
-/*
-===========================================================
-2) Find employees who earn more than the average salary
-===========================================================
-Explanation:
-- inner query → average salary (AVG)
-- outer query → যাদের salary > average, তাদের দেখায়
-*/
-
-`SELECT name, salary
-FROM employees
-WHERE salary > (
-    SELECT AVG(salary)
-    FROM employees
-);`;
-
-/*
-===========================================================
-3) Highest salary employee in HR Department
-===========================================================
-Explanation:
-- inner query → শুধুমাত্র HR department-এর highest salary বের করে
-- outer query → সেই highest salary-ওয়ালা কর্মচারীর নাম দেখায়
-*/
-
-`SELECT name, salary
-FROM employees
-WHERE salary = (
-    SELECT MAX(salary)
-    FROM employees
-    WHERE department = 'HR'
-)
-AND department = 'HR';`;
 
 /*
 ====================================================================
-✔ END — PostgreSQL Subquery (3 Important Examples)
+🟩 Procedure এর সুবিধা
+====================================================================
+- কোড reusable → একবার declare করলে বারবার ব্যবহার করা যায়  
+- Business logic database-এ রাখা যায়  
+- Performance improve হয়, কারণ database-এ logic execute হয়  
+- Function-এর মতো strict return value নেই → বেশি flexible  
+*/
+
+/*
+====================================================================
+🔵 PostgreSQL Procedure Structure
+====================================================================
+*/
+
+`CREATE PROCEDURE procedure_name(parameters)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Procedure logic
+END;
+$$`;
+
+/*
+====================================================================
+1) Simple Procedure — কোনো parameter নেই
+====================================================================
+Explanation:
+- কোন parameter নেই  
+- কাজ console-এ message দেখানো
+*/
+
+`CREATE PROCEDURE say_hello()
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RAISE NOTICE 'Hello, world!';
+END;
+$$`;
+
+/*
+Execute:
+CALL say_hello();
+*/
+
+/*
+====================================================================
+2) Procedure With IN parameter
+====================================================================
+Explanation:
+- parameter হিসেবে input নেয়  
+- console-এ message দেখায়
+*/
+
+`CREATE PROCEDURE greet_user(name text)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RAISE NOTICE 'Hello, %', name;
+END;
+$$`;
+
+/*
+Execute:
+CALL greet_user('Anwar');
+*/
+
+/*
+====================================================================
+3) Procedure With OUT parameter
+====================================================================
+Explanation:
+- OUT parameter দিয়ে value return করা যায়  
+- employees table থেকে total count return করবে
+*/
+
+`CREATE PROCEDURE get_employee_count(OUT total int)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    SELECT COUNT(*) INTO total FROM employees;
+END;
+$$`;
+
+/*
+Execute:
+CALL get_employee_count(total => 0);
+*/
+
+/*
+====================================================================
+4) Procedure Doing INSERT / UPDATE
+====================================================================
+Explanation:
+- Student table-এ নতুন row insert করবে
+*/
+
+`CREATE PROCEDURE add_student(student_name text, student_age int)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO students(name, age) VALUES (student_name, student_age);
+END;
+$$`;
+
+/*
+Execute:
+CALL add_student('Karim', 20);
+*/
+
+/*
+====================================================================
+5) Key Differences: Function vs Procedure
+====================================================================
+| Feature | Function | Procedure |
+|---------|---------|-----------|
+| Return Value | অবশ্যই return করতে হবে | Optional; OUT parameter ব্যবহার করা যায় |
+| Execute | SELECT / expression | CALL procedure_name() |
+| Use | Calculation / Query | Data manipulation / Business logic |
+| Transaction control | সীমিত | BEGIN/COMMIT/ROLLBACK করতে পারে |
+*/
+
+/*
+====================================================================
+✔ END — PostgreSQL Stored Procedure (TS File Style)
 ====================================================================
 */
